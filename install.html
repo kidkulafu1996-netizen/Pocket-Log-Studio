@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101112">
+<title>Install Pocket Log Studio</title>
+<meta name="description" content="Install Pocket Log Studio, the D-Log editor and LUT tool, on your phone.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Log Studio">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bay:#101112;--deck:#18191b;--knob:#232527;--rule:#2f3134;--text:#e6e6e6;--dim:#9b9da0;--tally:#e9b04a;--tally-ink:#1b1406;
+  --font-ui:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;--font-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:dark;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{background:var(--bay);color:var(--text);margin:0}
+body{font-family:var(--font-ui);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent;
+  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:40px 40px}
+main{max-width:440px;margin:0 auto;display:grid;gap:22px;justify-items:center;text-align:center}
+.icon{width:112px;height:112px;border-radius:26px;box-shadow:0 12px 36px rgba(0,0,0,.6),0 0 0 1px #2a2c2f}
+h1{margin:0;font-size:30px;line-height:1.1;letter-spacing:.01em;text-wrap:balance}
+.sub{margin:6px 0 0;color:var(--dim);max-width:34ch}
+.facts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-family:var(--font-num);font-size:12px;color:var(--dim)}
+.facts span{border:1px solid var(--rule);border-radius:999px;padding:3px 10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;border-radius:14px;border:0;
+  background:var(--tally);color:var(--tally-ink);font:inherit;font-size:20px;font-weight:700;letter-spacing:.02em;cursor:pointer;text-decoration:none}
+.btn.alt{background:var(--knob);color:var(--text);border:1px solid var(--rule);font-size:17px;min-height:48px}
+.btn:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.btn svg{width:24px;height:24px}
+.card{width:100%;background:var(--deck);border:1px solid var(--rule);border-radius:16px;padding:18px;text-align:left;display:grid;gap:14px}
+.card h2{margin:0;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+ol{margin:0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:s}
+li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:center;counter-increment:s}
+li::before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--knob);border:1px solid var(--rule);display:grid;place-items:center;font-family:var(--font-num);font-size:14px}
+.ico{display:inline-flex;vertical-align:-5px;width:22px;height:22px;color:var(--tally)}
+.status{font-size:15px;color:var(--dim)}
+.ok{color:#7fc39a}
+.pointer{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);color:var(--tally);display:grid;justify-items:center;font-weight:600;font-size:14px;pointer-events:none;animation:bob 1.2s ease-in-out infinite}
+.pointer svg{width:30px;height:30px}
+@keyframes bob{50%{transform:translate(-50%,8px)}}
+@media (prefers-reduced-motion:reduce){.pointer{animation:none}}
+small.note{color:var(--dim);font-size:13.5px;max-width:40ch}
+</style>
+</head><body>
+<main>
+  <img class="icon" src="icon-512.png" alt="Pocket Log Studio icon">
+  <div>
+    <h1>Pocket Log Studio</h1>
+    <p class="sub">Cut and colour grade your Osmo Pocket D-Log footage. Import, apply and make LUTs.</p>
+  </div>
+  <div class="facts"><span>D-Log 10-bit</span><span>.cube LUTs</span><span>Works offline</span><span>No uploads</span></div>
+
+  <button class="btn" id="installBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 10l6 6 6-6M4 20h16"/></svg><span id="installLbl">Install app</span></button>
+  <p class="status" id="status" aria-live="polite"></p>
+
+  <section class="card" id="iosSteps" hidden>
+    <h2>Install on iPhone</h2>
+    <ol>
+      <li><span>Tap <b>Share</b> <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></span> in Safari's toolbar. In Chrome it's at the top right.</span></li>
+      <li><span>Scroll down and tap <b>Add to Home Screen</b> <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span></span></li>
+      <li><span>Tap <b>Add</b>. Open Log Studio from your home screen.</span></li>
+    </ol>
+  </section>
+
+  <section class="card" id="otherSteps" hidden>
+    <h2>Install from the browser menu</h2>
+    <ol>
+      <li><span>Open this page in <b>Chrome</b> (or Edge / Samsung Internet).</span></li>
+      <li><span>Tap the menu <b>⋮</b>, then <b>Install app</b> or <b>Add to Home screen</b>.</span></li>
+    </ol>
+  </section>
+
+  <a class="btn alt" href="./">Use it in the browser instead</a>
+  <small class="note">Open the app once while online. After that it starts offline from your home screen.</small>
+</main>
+<div class="pointer" id="pointer" hidden><span>Share is here</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M6 14l6 6 6-6"/></svg></div>
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const ua=navigator.userAgent;
+const iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const iPhoneSafari=iOS&&/Safari/.test(ua)&&!/CriOS|FxiOS|EdgiOS/.test(ua)&&!/iPad/.test(ua);
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+let evt=null;
+
+function installed(){$('#installLbl').textContent='Open Log Studio';$('#status').innerHTML='<span class="ok">Installed.</span> You can open it from your home screen.';$('#installBtn').onclick=()=>location.href='./';}
+
+if(standalone){installed();}
+else if(iOS){
+  $('#installLbl').textContent='Show me how to install';
+  $('#installBtn').onclick=()=>{$('#iosSteps').hidden=false;$('#iosSteps').scrollIntoView({behavior:'smooth',block:'center'});if(iPhoneSafari)$('#pointer').hidden=false;$('#status').textContent='Apple only allows installing through the Share menu. Three taps:';};
+}else{
+  $('#status').textContent='Preparing installer…';
+  $('#installBtn').onclick=async()=>{
+    if(evt){evt.prompt();let r;try{r=await evt.userChoice;}catch(e){}evt=null;
+      if(r&&r.outcome==='accepted'){$('#status').innerHTML='<span class="ok">Installing…</span> Look for Log Studio on your home screen.';}
+      else $('#status').textContent='Install cancelled. Tap the button to try again.';
+      return;}
+    $('#otherSteps').hidden=false;$('#otherSteps').scrollIntoView({behavior:'smooth',block:'center'});
+    $('#status').textContent='This browser didn\'t offer one-tap install, so use its menu:';
+  };
+  setTimeout(()=>{if(!evt&&$('#status').textContent==='Preparing installer…')$('#status').textContent='';},4000);
+}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();evt=e;$('#status').textContent='Ready. One tap installs it.';});
+addEventListener('appinstalled',()=>installed());
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+})();
+</script>
+</body></html>
